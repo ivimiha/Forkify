@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/ivimiha/Forkify/issues"
   },
-  "homepage": "https://github.com/ivimiha/Forkify#readme"
+  "homepage": "https://github.com/ivimiha/Forkify#readme",
+  "devDependencies": {
+    "webpack": "^4.40.2",
+    "webpack-cli": "^2.1.5",
+    "webpack-dev-server": "^3.8.0"
+  }
 }
