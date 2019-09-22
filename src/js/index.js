@@ -1,17 +1,35 @@
 //https://www.food2fork.com/api/search
 //fcd773eb744ccfeaba30a02650835ea6
-import axios from "axios";
+import Search from "./models/Search";
 
-async function getResults(query) {
-    const key = "fcd773eb744ccfeaba30a02650835ea6";
-    try {
-        const res = await axios(`https://www.food2fork.com/api/search?key=${key}&q=${query}`);
-        const recipes = res.data.recipes;
-        console.log(recipes);
-    } catch (error) {
-        alert(error);
+/** Global state of the app
+ * - Search object
+ * - Current recipe object
+ * - Shopping list object
+ * - Liked objects
+ */
+
+const state = {};
+
+const controlSearch = async () => {
+    // 1. Get the query from the view
+    const query = "pizza" //TODO
+
+    if (query) {
+        // 2. New search object and add to state
+        state.search = new Search(query);
+
+        //3. Prepare UI for results
+
+        //4. Search for recipes
+        await state.search.getResults();
+
+        //5. Render results on UI
+        console.log(state.search.result)
     }
-    
 }
 
-getResults("tomato pasta");
+document.querySelector(".search").addEventListener("submit", e => {
+    e.preventDefault();
+    controlSearch();
+})
