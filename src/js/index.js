@@ -1,6 +1,7 @@
 //https://www.food2fork.com/api/search
 //fcd773eb744ccfeaba30a02650835ea6
 import Search from "./models/Search";
+import Recipe from "./models/Recipe";
 import * as searchView from "./views/searchView";
 import { elements, renderLoader, clearLoader } from "./views/base";
 
@@ -12,6 +13,8 @@ import { elements, renderLoader, clearLoader } from "./views/base";
  */
 
 const state = {};
+
+// Search Controller
 
 const controlSearch = async () => {
     // 1. Get the query from the view
@@ -48,3 +51,10 @@ elements.searchResPages.addEventListener("click", e => {
         searchView.renderResults(state.search.result, goToPage);
     }
 })
+
+
+// Search Controller
+
+const r = new Recipe(47746);
+r.getRecipe();
+console.log(r);
