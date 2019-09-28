@@ -24,10 +24,55 @@ export default class Recipe {
         // Assuming that we need 15 min for each 3 ingredients
         const numIng = this.ingredients.length;
         const period = Math.ceil(numIng / 3);
-        this.time = periods * 15;
+        this.time = period * 15;
     }
 
     calcServings(){
         this.servings = 4;
     }
+    parseIngredients(){
+        const unitsLong = ["tablespoons", "tablespoon", "ounces", "ounce", "teaspoons", "teaspoon", "cups", "pounds"];
+        const unitsShort = ["tbsp", "tbsp", "oz", "oz", "tsp", "tsp", "cup", "pound"];
+        const newIngredients = this.ingredients.map(el => {
+            // 1 Uniform units
+            let ingredient = el.toLowerCase();
+            unitsLong.forEach((unit, i) => {
+                ingredient = ingredient.replace(unit, unitsShort[i]);
+            });
+
+            // 2 Remove perentheses
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, "");
+
+            // 3 parse ingredients into count, unit and ingredient
+            const arrIng = ingredient.split(" ");
+            const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+
+            let objIng;
+
+            if (unitIndex > -1) {
+                // There is a unit
+            } else if (parseInt(arrIng[0], 10)) {
+                // There is no unit, but 1st element is a number
+                objIng = {
+                    count: parseInt(arrIng[0], 10),
+                    unit: "",
+                    ingredient: arrIng.slice(1).join(" ")
+                }
+            } else if (unitIndex === -1) {
+                // There is no unit and no number in 1st position
+                objIng = {
+                    count: 1,
+                    unit: "",
+                    ingredient
+                }
+            }
+            
+            
+            return objIng;
+        });
+        this.ingredients = newIngredients;
+
+    }
+
+
 }
