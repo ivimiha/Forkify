@@ -38,7 +38,7 @@ const controlSearch = async () => {
 
         } catch (error){
             console.log(error);
-            alert("Error while processing the query! Please refresh the page and try again.")
+            alert(`Can't get ${query}! Please refresh the page and try again.`)
             clearLoader();
         }
     }
